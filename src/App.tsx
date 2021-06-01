@@ -11,7 +11,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   RouteComponentProps,
 } from "react-router-dom";
 import { ResourceCardCompact } from "./CompactResouceCard";
@@ -38,24 +37,6 @@ export default function App() {
   return (
     <Router>
       <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/search">Search</Link>
-          </li>
-        </ul>
-
-        <hr />
-
-        {/*
-          A <Switch> looks through all its children <Route>
-          elements and renders the first one whose path
-          matches the current URL. Use a <Switch> any time
-          you have multiple routes, but you want only one
-          of them to render at a time
-        */}
         <Switch>
           <Route exact path="/">
             <Home />
@@ -75,8 +56,11 @@ export default function App() {
 
 function Home() {
   return (
-    <div>
-      <h2>More options coming soon, reach out to +91-8882017983</h2>
+    <div style={{ margin: 20 }}>
+      <pre>
+        More options coming soon, reach out to +91-8882017983. Till then you can{" "}
+        <a href="/search">Search for Covid Resources</a>
+      </pre>
     </div>
   );
 }
@@ -147,12 +131,26 @@ function Search(props: RouteComponentProps) {
   };
 
   const updateParams = (newParamStr: string) => {
-    window.history.pushState("", "Covid Resources Help", `/search?${newParamStr}`);
+    window.history.pushState(
+      "",
+      "Covid Resources Help",
+      `/search?${newParamStr}`
+    );
     setParamString(newParamStr);
   };
 
   return (
-    <div>
+    <Stack
+      verticalAlign="center"
+      verticalFill
+      styles={{
+        root: {
+          width: "480px",
+          margin: "0 20px",
+        },
+      }}
+      tokens={stackTokens}
+    >
       <h2>Search</h2>{" "}
       <DefaultButton
         text="Open filters"
@@ -188,7 +186,7 @@ function Search(props: RouteComponentProps) {
           ))}
         </Stack>
       )}
-    </div>
+    </Stack>
   );
 }
 
