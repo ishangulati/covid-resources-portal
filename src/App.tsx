@@ -143,7 +143,6 @@ function Search(props: RouteComponentProps) {
       styles={{
         root: {
           margin: "0 20px",
-
         },
       }}
       tokens={stackTokens}
@@ -152,7 +151,7 @@ function Search(props: RouteComponentProps) {
       <DefaultButton
         text="Open filters"
         onClick={openFiltersPanel}
-        style={{ marginBottom: 10, maxWidth:482 }}
+        style={{ marginBottom: 10, maxWidth: 482 }}
       />
       <div>
         <Panel
