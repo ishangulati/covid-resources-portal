@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/covid-resources-portal/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/covid-resources-portal/static/js/main.94b9060a.chunk.js",
-    "main.js.map": "/covid-resources-portal/static/js/main.94b9060a.chunk.js.map",
+    "main.js": "/covid-resources-portal/static/js/main.f500aa2c.chunk.js",
+    "main.js.map": "/covid-resources-portal/static/js/main.f500aa2c.chunk.js.map",
     "runtime-main.js": "/covid-resources-portal/static/js/runtime-main.53527ee8.js",
     "runtime-main.js.map": "/covid-resources-portal/static/js/runtime-main.53527ee8.js.map",
-    "static/js/2.f6a9fcb7.chunk.js": "/covid-resources-portal/static/js/2.f6a9fcb7.chunk.js",
-    "static/js/2.f6a9fcb7.chunk.js.map": "/covid-resources-portal/static/js/2.f6a9fcb7.chunk.js.map",
+    "static/js/2.afc75ab0.chunk.js": "/covid-resources-portal/static/js/2.afc75ab0.chunk.js",
+    "static/js/2.afc75ab0.chunk.js.map": "/covid-resources-portal/static/js/2.afc75ab0.chunk.js.map",
     "static/js/3.1abc5673.chunk.js": "/covid-resources-portal/static/js/3.1abc5673.chunk.js",
     "static/js/3.1abc5673.chunk.js.map": "/covid-resources-portal/static/js/3.1abc5673.chunk.js.map",
     "index.html": "/covid-resources-portal/index.html",
     "static/css/main.6dea0f05.chunk.css.map": "/covid-resources-portal/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.f6a9fcb7.chunk.js.LICENSE.txt": "/covid-resources-portal/static/js/2.f6a9fcb7.chunk.js.LICENSE.txt"
+    "static/js/2.afc75ab0.chunk.js.LICENSE.txt": "/covid-resources-portal/static/js/2.afc75ab0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.53527ee8.js",
-    "static/js/2.f6a9fcb7.chunk.js",
+    "static/js/2.afc75ab0.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.94b9060a.chunk.js"
+    "static/js/main.f500aa2c.chunk.js"
   ]
 }
