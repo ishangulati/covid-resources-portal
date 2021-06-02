@@ -142,8 +142,8 @@ function Search(props: RouteComponentProps) {
       verticalFill
       styles={{
         root: {
-          width: "480px",
           margin: "0 20px",
+
         },
       }}
       tokens={stackTokens}
@@ -152,7 +152,7 @@ function Search(props: RouteComponentProps) {
       <DefaultButton
         text="Open filters"
         onClick={openFiltersPanel}
-        style={{ marginBottom: 10 }}
+        style={{ marginBottom: 10, maxWidth:482 }}
       />
       <div>
         <Panel
