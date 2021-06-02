@@ -5,7 +5,7 @@ import {
   IDropdownOption,
   IDropdownStyles,
 } from "@fluentui/react/lib/Dropdown";
-import { ChoiceGroup, IChoiceGroupOption, Label, Stack } from "@fluentui/react";
+import { ChoiceGroup, IChoiceGroupOption, Stack } from "@fluentui/react";
 import { categoryMapping, getEnumValues } from "./Utils";
 import {
   Ambulance,

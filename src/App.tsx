@@ -5,6 +5,7 @@ import {
   Panel,
   PanelType,
   Stack,
+  Link as FluentLink,
 } from "@fluentui/react";
 import React, { useEffect, useState } from "react";
 import {
@@ -57,12 +58,21 @@ export default function App() {
 
 function Home() {
   return (
-    <div style={{ margin: 20 }}>
-      <pre>
+    <Stack
+      verticalAlign="center"
+      verticalFill
+      styles={{
+        root: {
+          margin: "0 20px",
+        },
+      }}
+      tokens={stackTokens}
+    >
+      <p>
         More options coming soon, reach out to +91-8882017983. Till then you can{" "}
         <Link to="/search">Search for Covid Resources</Link>
-      </pre>
-    </div>
+      </p>
+    </Stack>
   );
 }
 
@@ -106,6 +116,9 @@ function Search(props: RouteComponentProps) {
     useBoolean(false);
 
   const setFilterCategory = (newCategory: string) => {
+    if (newCategory === category) {
+      return;
+    }
     if (newCategory === "all") {
       CATEGORIES.forEach((cat) => {
         params.delete(cat);
@@ -116,9 +129,12 @@ function Search(props: RouteComponentProps) {
   };
 
   const setFilterType = (newType: string) => {
+    if (type === newType) {
+      return;
+    }
     params.delete("type");
     if (newType === "availability" || newType === "requirement") {
-      params.append("type", encodeURIComponent(newType));
+      params.append("type", newType);
     }
     updateParams(params.toString());
     setType(newType);
@@ -126,7 +142,7 @@ function Search(props: RouteComponentProps) {
 
   const setFilterSubcategory = (options: string[]) => {
     params.delete(category);
-    options.forEach((opt) => params.append(category, encodeURIComponent(opt)));
+    options.forEach((opt) => params.append(category, opt));
     updateParams(params.toString());
     setSubCategory(options);
   };
@@ -177,9 +193,20 @@ function Search(props: RouteComponentProps) {
         <></>
       ) : (
         <Stack tokens={stackTokens}>
-          {resources.map((r) => (
-            <ResourceCardCompact resource={r} key={r.contactuid} />
-          ))}
+          {resources && resources.length ? (
+            resources.map((r) => (
+              <ResourceCardCompact resource={r} key={r.contactuid} />
+            ))
+          ) : (
+            <p>
+              {"No results to show yet, "}
+              <FluentLink onClick={openFiltersPanel}>
+                {"try using different filters."}
+              </FluentLink>
+              <br />
+              {"Meanwhile, we will work on getting more leads!"}"
+            </p>
+          )}
         </Stack>
       )}
     </Stack>
