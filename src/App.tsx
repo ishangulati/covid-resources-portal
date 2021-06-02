@@ -12,6 +12,7 @@ import {
   Switch,
   Route,
   RouteComponentProps,
+  Link,
 } from "react-router-dom";
 import { ResourceCardCompact } from "./CompactResouceCard";
 import { IListingContact } from "./Models";
@@ -59,7 +60,7 @@ function Home() {
     <div style={{ margin: 20 }}>
       <pre>
         More options coming soon, reach out to +91-8882017983. Till then you can{" "}
-        <a href="/search">Search for Covid Resources</a>
+        <Link to="/search">Search for Covid Resources</Link>
       </pre>
     </div>
   );
