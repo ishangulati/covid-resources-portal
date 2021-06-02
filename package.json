@@ -2,6 +2,7 @@
   "name": "covid-resources-portal",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ishangulati.github.io/covid-resources-portal",
   "dependencies": {
     "@fluentui/react": "^8.16.0",
     "@testing-library/jest-dom": "^5.11.4",

@@ -132,11 +132,7 @@ function Search(props: RouteComponentProps) {
   };
 
   const updateParams = (newParamStr: string) => {
-    window.history.pushState(
-      "",
-      "Covid Resources Help",
-      `/search?${newParamStr}`
-    );
+    props.history.push(`/search?${newParamStr}`);
     setParamString(newParamStr);
   };
 
