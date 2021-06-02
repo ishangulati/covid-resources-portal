@@ -83,7 +83,6 @@ export const FilterControls: React.FunctionComponent<IFilterControlsProps> = (
 
   return (
     <Stack tokens={{ childrenGap: 5 }}>
-      <Label>Show me</Label>
       <ChoiceGroup
         selectedKey={type}
         options={typeOptions}

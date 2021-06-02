@@ -148,7 +148,7 @@ function Search(props: RouteComponentProps) {
       }}
       tokens={stackTokens}
     >
-      <h2>Search</h2>{" "}
+      <h2>Search</h2>
       <DefaultButton
         text="Open filters"
         onClick={openFiltersPanel}
