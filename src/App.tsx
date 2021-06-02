@@ -8,7 +8,7 @@ import {
 } from "@fluentui/react";
 import React, { useEffect, useState } from "react";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   RouteComponentProps,
