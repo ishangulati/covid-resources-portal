@@ -33,7 +33,7 @@ export const ResourceCardCompact: React.FunctionComponent<{
 
   return (
     <DocumentCard
-    //   onClickHref={`/details/${resource.contactuid}`}
+     // onClickHref={`/details/${resource.contactuid}`}
       type={DocumentCardType.compact}
       style={{ height: 160 }}
     >
@@ -48,7 +48,7 @@ export const ResourceCardCompact: React.FunctionComponent<{
             <DocumentCardLogo {...getLogoProps(icon)} />
           ))}
           {resource.location?.map((city) => (
-            <div style={{fontSize: 15}}>{toTitleCase(city)}</div>
+            <div style={{ fontSize: 15 }}>{toTitleCase(city)}</div>
           ))}
         </div>
       </div>

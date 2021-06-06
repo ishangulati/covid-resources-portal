@@ -6,6 +6,8 @@ import {
   PanelType,
   Stack,
   Link as FluentLink,
+  FocusZoneDirection,
+  FocusZone,
 } from "@fluentui/react";
 import React, { useEffect, useState } from "react";
 import {
@@ -14,6 +16,7 @@ import {
   Route,
   RouteComponentProps,
   Link,
+  withRouter,
 } from "react-router-dom";
 import { ResourceCardCompact } from "./CompactResouceCard";
 import { IListingContact } from "./Models";
@@ -76,7 +79,7 @@ function Home() {
   );
 }
 
-function Search(props: RouteComponentProps) {
+const Search = withRouter((props: RouteComponentProps) => {
   const [paramStr, setParamString] = React.useState(props.location.search);
   const params = new URLSearchParams(paramStr);
 
@@ -88,12 +91,14 @@ function Search(props: RouteComponentProps) {
   const [resources, setResources] = useState<IListingContact[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const onBack = () => {
-    setParamString(window.location.search);
+  const onHistoryChange = (location: {
+    search: React.SetStateAction<string>;
+  }) => {
+    setParamString(location.search);
   };
 
   useEffect(() => {
-    window.addEventListener("popstate", onBack);
+    const removeListener = props.history.listen(onHistoryChange);
     const newParams = new URLSearchParams(paramStr);
     const searchUrl = formSearchUrl(newParams);
 
@@ -102,15 +107,15 @@ function Search(props: RouteComponentProps) {
     })
       .then((res) => res.json())
       .then((response) => {
-        setResources(response);
+        setResources(response.rows);
         setIsLoading(false);
       })
       .catch((error) => console.log(error));
 
     return () => {
-      window.removeEventListener("popstate", onBack);
+      removeListener();
     };
-  }, [paramStr]);
+  }, [paramStr, props.history]);
 
   const [isOpen, { setTrue: openFiltersPanel, setFalse: dismissPanel }] =
     useBoolean(false);
@@ -192,26 +197,34 @@ function Search(props: RouteComponentProps) {
       {isLoading ? (
         <></>
       ) : (
-        <Stack tokens={stackTokens}>
-          {resources && resources.length ? (
-            resources.map((r) => (
-              <ResourceCardCompact resource={r} key={r.contactuid} />
-            ))
-          ) : (
-            <p>
-              {"No results to show yet, "}
-              <FluentLink onClick={openFiltersPanel}>
-                {"try using different filters."}
-              </FluentLink>
-              <br />
-              {"Meanwhile, we will work on getting more leads!"}"
-            </p>
-          )}
-        </Stack>
+        <FocusZone
+          direction={FocusZoneDirection.vertical}
+          isCircularNavigation={true}
+          role="grid"
+          defaultTabbableElement={".ms-DocumentCard:first-child"}
+          shouldFocusOnMount={true}
+        >
+          <Stack tokens={stackTokens}>
+            {resources && resources.length ? (
+              resources.map((r) => (
+                <ResourceCardCompact resource={r} key={r.contactuid} />
+              ))
+            ) : (
+              <p>
+                {"No results to show yet, "}
+                <FluentLink onClick={openFiltersPanel}>
+                  {"try using different filters."}
+                </FluentLink>
+                <br />
+                {"Meanwhile, we will work on getting more leads!"}"
+              </p>
+            )}
+          </Stack>
+        </FocusZone>
       )}
     </Stack>
   );
-}
+});
 
 function Details() {
   return (

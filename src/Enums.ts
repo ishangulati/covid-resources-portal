@@ -30,6 +30,8 @@ export enum Medicince {
   Posatral = "Posatral",
   Medrol = "Medrol",
   Remdesivir = "Remdesivir",
+  Cresemba = "Cresemba",
+  Alprazolam = "Alprazolam",
 }
 
 export enum Ambulance {
