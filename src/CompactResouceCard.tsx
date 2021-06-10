@@ -7,7 +7,6 @@ import {
   IDocumentCardActivityPerson,
   DocumentCardType,
   DocumentCardStatus,
-  DocumentCardLocation,
   DocumentCardLogo,
 } from "@fluentui/react/lib/DocumentCard";
 import { IListingContact } from "./Models";
@@ -17,6 +16,7 @@ import {
   timeDifference,
   toTitleCase,
 } from "./Utils";
+import { setFocusVisibility } from "@fluentui/react";
 
 export const ResourceCardCompact: React.FunctionComponent<{
   resource: IListingContact;
@@ -33,16 +33,27 @@ export const ResourceCardCompact: React.FunctionComponent<{
 
   return (
     <DocumentCard
-     // onClickHref={`/details/${resource.contactuid}`}
+      onClick={(ev) => {
+        setFocusVisibility(true);
+      }}
       type={DocumentCardType.compact}
       style={{ height: 160 }}
     >
       <div style={{ position: "relative" }}>
-        <DocumentCardLocation
-          styles={{ root: { fontSize: 15, display: "inline-block" } }}
-          location={resource.contactuid}
-          locationHref={`tel://${resource.contactuid}`}
-        />
+        <a
+          data-is-focusable={false}
+          style={{
+            fontSize: 15,
+            fontWeight: 600,
+            color: `rgb(0, 120, 212)`,
+            display: "inline-block",
+            padding: "8px 16px",
+            textDecoration: "none",
+          }}
+          href={`tel://${resource.contactuid}`}
+        >
+          {resource.contactuid}
+        </a>
         <div style={{ position: "absolute", margin: "0 20px" }}>
           {resourceDetails.icons.map((icon) => (
             <DocumentCardLogo {...getLogoProps(icon)} />

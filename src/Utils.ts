@@ -90,7 +90,9 @@ export function getLogoProps(iconType: IconType): IDocumentCardLogoProps {
   };
 }
 
-export const categoryMapping = {
+export const categoryMapping: {
+  [name in CategoryType]: { text: string; color: string; logoIcon: string };
+} = {
   medicine: {
     text: "Medicine",
     color: "black",
@@ -112,7 +114,7 @@ export function getEnumValues(obj: Object) {
   return Object.values(obj).map((k) => ({ key: k, text: k }));
 }
 
-export const CATEGORIES = [
+export const CATEGORIES: CategoryType[] = [
   "medicine",
   "bloodgroup",
   "therapy",
@@ -121,3 +123,12 @@ export const CATEGORIES = [
   "ambulance",
   "food",
 ];
+
+export type CategoryType =
+  | "medicine"
+  | "bloodgroup"
+  | "therapy"
+  | "oxygen"
+  | "bed"
+  | "ambulance"
+  | "food";

@@ -33,7 +33,7 @@ const DocumentCardConversationExample: React.FunctionComponent<{
     <div>
       <DocumentCard
         styles={cardStyles}
-        // onClickHref={`/details/${resource.contactuid}`}
+        onClickHref={`/details/${resource.contactuid}`}
       >
         {resourceDetails.icons.map((icon) => (
           <DocumentCardLogo {...getLogoProps(icon)} />

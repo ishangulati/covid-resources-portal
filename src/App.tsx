@@ -8,6 +8,7 @@ import {
   Link as FluentLink,
   FocusZoneDirection,
   FocusZone,
+  setFocusVisibility,
 } from "@fluentui/react";
 import React, { useEffect, useState } from "react";
 import {
@@ -23,6 +24,7 @@ import { IListingContact } from "./Models";
 import { useBoolean } from "@fluentui/react-hooks";
 import { FilterControls } from "./FilterControls";
 import { CATEGORIES } from "./Utils";
+import { DetailsPane } from "./DetailsPane";
 
 const stackTokens: IStackTokens = { childrenGap: 10 };
 
@@ -156,7 +158,8 @@ const Search = withRouter((props: RouteComponentProps) => {
     props.history.push(`/search?${newParamStr}`);
     setParamString(newParamStr);
   };
-
+  setFocusVisibility(true);
+  const [selectedIdx, setSelectedIdx] = useState(0);
   return (
     <Stack
       verticalAlign="center"
@@ -201,10 +204,22 @@ const Search = withRouter((props: RouteComponentProps) => {
           direction={FocusZoneDirection.vertical}
           isCircularNavigation={true}
           role="grid"
-          defaultTabbableElement={".ms-DocumentCard:first-child"}
+          defaultTabbableElement={"div.ms-DocumentCard:first-child"}
           shouldFocusOnMount={true}
+          style={{ display: "flex", flexDirection: "row" }}
+          onFocus={(ev) => {
+            const clickResourceNode = ev.target.closest(".ms-DocumentCard");
+            var nodes = Array.prototype.slice.call(
+              clickResourceNode?.parentNode?.childNodes
+            );
+            setSelectedIdx(nodes.indexOf(clickResourceNode));
+          }}
         >
-          <Stack tokens={stackTokens}>
+          <Stack
+            tokens={stackTokens}
+            wrap={true}
+            styles={{ inner: { width: 500 } }}
+          >
             {resources && resources.length ? (
               resources.map((r) => (
                 <ResourceCardCompact resource={r} key={r.contactuid} />
@@ -220,6 +235,7 @@ const Search = withRouter((props: RouteComponentProps) => {
               </p>
             )}
           </Stack>
+          <DetailsPane contact={resources[selectedIdx]} />
         </FocusZone>
       )}
     </Stack>
