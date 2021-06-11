@@ -1,4 +1,4 @@
-import { Icon, Label, Persona, PersonaSize } from "@fluentui/react";
+import { Icon, Persona, PersonaSize } from "@fluentui/react";
 import { ILead, IListingContact } from "./Models";
 import { Image } from "@fluentui/react/lib/Image";
 import { CATEGORIES, categoryMapping, CategoryType } from "./Utils";
@@ -7,7 +7,7 @@ import { Tweet } from "react-twitter-widgets";
 
 export function DetailsPane(props: { contact: IListingContact }) {
   return (
-    <div style={{ width: "auto", position: "fixed", left: 520 }}>
+    <div style={{ width: "100%" }}>
       <Persona
         showUnknownPersonaCoin={true}
         text={props.contact.contactuid}
@@ -22,10 +22,11 @@ export function DetailsPane(props: { contact: IListingContact }) {
         ))}
       </div>
       <hr />
-      <Label title={"Resources:"} />
-      {props.contact.leads?.slice(0, 10).map((lead: ILead) => (
-        <Lead key={lead.leaduid} lead={lead} />
-      ))}
+      <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+        {props.contact.leads?.slice(0, 30).map((lead: ILead) => (
+          <Lead key={lead.leaduid} lead={lead} />
+        ))}
+      </div>
     </div>
   );
 }
@@ -57,7 +58,6 @@ function Lead(props: { lead: ILead }) {
   const { lead } = props;
   return (
     <>
-      <Label title={`Shared by: ${lead.sender}`} />
       {lead.source === "whatsapp" ? (
         lead.link ? (
           <Image
@@ -73,12 +73,9 @@ function Lead(props: { lead: ILead }) {
           />
         )
       ) : (
-        <>
-          <Tweet
-            options={{ width: 300, height: 500 }}
-            tweetId={(lead.link || "").substr(-19)}
-          />
-        </>
+        <div style={{ margin: 10, display: "inline-block", width: 320 }}>
+          <Tweet tweetId={(lead.link || "").substr(-19)} />
+        </div>
       )}
     </>
   );

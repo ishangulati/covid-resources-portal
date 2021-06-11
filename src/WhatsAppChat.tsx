@@ -4,7 +4,6 @@ export function WhatsAppChat(props: {
   time: string;
 }) {
   return (
-    <div className="container">
       <div className="speech-wrapper">
         <div className="bubble">
           <div className="txt">
@@ -19,6 +18,5 @@ export function WhatsAppChat(props: {
           <div className="bubble-arrow"></div>
         </div>
       </div>
-    </div>
   );
 }
