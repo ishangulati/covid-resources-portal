@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/covid-resources-portal/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/covid-resources-portal/static/js/main.e1635a36.chunk.js",
-    "main.js.map": "/covid-resources-portal/static/js/main.e1635a36.chunk.js.map",
+    "main.js": "/covid-resources-portal/static/js/main.46931900.chunk.js",
+    "main.js.map": "/covid-resources-portal/static/js/main.46931900.chunk.js.map",
     "runtime-main.js": "/covid-resources-portal/static/js/runtime-main.8a6895dc.js",
     "runtime-main.js.map": "/covid-resources-portal/static/js/runtime-main.8a6895dc.js.map",
     "static/js/2.a503131c.chunk.js": "/covid-resources-portal/static/js/2.a503131c.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.8a6895dc.js",
     "static/js/2.a503131c.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.e1635a36.chunk.js"
+    "static/js/main.46931900.chunk.js"
   ]
 }
