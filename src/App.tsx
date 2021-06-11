@@ -25,6 +25,7 @@ import { useBoolean } from "@fluentui/react-hooks";
 import { FilterControls } from "./FilterControls";
 import { CATEGORIES } from "./Utils";
 import { DetailsPane } from "./DetailsPane";
+import "./App.css"
 
 const stackTokens: IStackTokens = { childrenGap: 10 };
 

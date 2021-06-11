@@ -2,6 +2,8 @@ import { Icon, Label, Persona, PersonaSize } from "@fluentui/react";
 import { ILead, IListingContact } from "./Models";
 import { Image } from "@fluentui/react/lib/Image";
 import { CATEGORIES, categoryMapping, CategoryType } from "./Utils";
+import { WhatsAppChat } from "./WhatsAppChat";
+import { Tweet } from "react-twitter-widgets";
 
 export function DetailsPane(props: { contact: IListingContact }) {
   return (
@@ -16,13 +18,13 @@ export function DetailsPane(props: { contact: IListingContact }) {
       <hr />
       <div style={{ display: "flex" }}>
         {CATEGORIES.map((cat) => (
-          <ListCard category={cat} contact={props.contact} />
+          <ListCard key={cat} category={cat} contact={props.contact} />
         ))}
       </div>
       <hr />
       <Label title={"Resources:"} />
-      {props.contact.leads?.map((lead: ILead) => (
-        <Lead lead={lead} />
+      {props.contact.leads?.slice(0, 10).map((lead: ILead) => (
+        <Lead key={lead.leaduid} lead={lead} />
       ))}
     </div>
   );
@@ -44,7 +46,7 @@ function ListCard(props: { category: CategoryType; contact: any }) {
       </div>
       <ul style={{ paddingLeft: 25 }}>
         {contact?.[category]?.map((item: string) => (
-          <li>{item}</li>
+          <li key={item}>{item}</li>
         ))}
       </ul>
     </div>
@@ -52,18 +54,50 @@ function ListCard(props: { category: CategoryType; contact: any }) {
 }
 
 function Lead(props: { lead: ILead }) {
+  const { lead } = props;
   return (
     <>
-      <Label title={`Shared by: ${props.lead.sender}`} />
-      {props.lead.link && props.lead.source === "whatsapp" ? (
-        <Image 
-          src={`https://covidresourcesstore.blob.core.windows.net/files/${props.lead.link}.jpeg`}
-          width={300}
-          height={400}
-        />
+      <Label title={`Shared by: ${lead.sender}`} />
+      {lead.source === "whatsapp" ? (
+        lead.link ? (
+          <Image
+            src={`https://covidresourcesstore.blob.core.windows.net/files/${lead.link}.jpeg`}
+            width={300}
+            height={400}
+          />
+        ) : (
+          <WhatsAppChat
+            sender={normalizeContact(lead.sender.split("@")[0])}
+            text={JSON.parse(props.lead.rawdata || "{}").message}
+            time={lead.originTimestamp.toString()}
+          />
+        )
       ) : (
-        JSON.parse(props.lead.rawdata || "{}").message
+        <>
+          <Tweet
+            options={{ width: 300, height: 500 }}
+            tweetId={(lead.link || "").substr(-19)}
+          />
+        </>
       )}
     </>
   );
+}
+
+function normalizeContact(phoneNumber: string) {
+  let normalizedContact = phoneNumber.replace(/[^0-9.]/g, "");
+  // helpline number
+  if (
+    normalizedContact.startsWith("1") &&
+    // numbers like 100, 1075, 1800 209 2359
+    ((normalizeContact.length >= 3 && normalizeContact.length < 6) ||
+      normalizeContact.length === 11)
+  ) {
+    //do nothing
+  } else {
+    const number = normalizedContact.substr(-10);
+    if (number) normalizedContact = "+91" + number;
+  }
+
+  return normalizedContact;
 }

@@ -50,16 +50,22 @@ export const ResourceCardCompact: React.FunctionComponent<{
             padding: "8px 16px",
             textDecoration: "none",
           }}
-          href={`tel://${resource.contactuid}`}
+          href={
+            resource.contactuid[0] === "+"
+              ? `tel://${resource.contactuid}`
+              : resource.contactuid
+          }
         >
           {resource.contactuid}
         </a>
         <div style={{ position: "absolute", margin: "0 20px" }}>
-          {resourceDetails.icons.map((icon) => (
-            <DocumentCardLogo {...getLogoProps(icon)} />
+          {resourceDetails.icons.map((icon, i) => (
+            <DocumentCardLogo key={i} {...getLogoProps(icon)} />
           ))}
           {resource.location?.map((city) => (
-            <div style={{ fontSize: 15 }}>{toTitleCase(city)}</div>
+            <div key={city} style={{ fontSize: 15 }}>
+              {toTitleCase(city)}
+            </div>
           ))}
         </div>
       </div>

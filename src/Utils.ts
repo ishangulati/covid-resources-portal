@@ -31,38 +31,15 @@ export function timeDifference(current: number, previous: number) {
 }
 
 export function getIconsAndTextObject(resource: IExtractedArrays) {
-  let text = [];
+  let text: string[] = [];
   let icons: IconType[] = [];
 
-  if (resource.medicine && resource.medicine.length) {
-    text.push(resource.medicine.join(";"));
-    icons.push(categoryMapping.medicine);
-  }
-  if (resource.bloodgroup && resource.bloodgroup.length) {
-    text.push(resource.bloodgroup.join(";"));
-    icons.push(categoryMapping.bloodgroup);
-  }
-  if (resource.therapy && resource.therapy.length) {
-    text.push(resource.therapy.join(";"));
-    icons.push(categoryMapping.therapy);
-  }
-
-  if (resource.oxygen && resource.oxygen.length) {
-    text.push(resource.oxygen.join(";"));
-    icons.push(categoryMapping.oxygen);
-  }
-  if (resource.bed && resource.bed.length) {
-    text.push(resource.bed.join(";"));
-    icons.push(categoryMapping.bed);
-  }
-  if (resource.ambulance && resource.ambulance.length) {
-    text.push(resource.ambulance.join(";"));
-    icons.push(categoryMapping.ambulance);
-  }
-  if (resource.food && resource.food.length) {
-    text.push(resource.food.join(";"));
-    icons.push();
-  }
+  CATEGORIES.forEach((cat) => {
+    if (resource[cat] && resource[cat]?.length) {
+      text.push((resource[cat] || []).join(";"));
+      icons.push(categoryMapping[cat]);
+    }
+  });
 
   return {
     text,
