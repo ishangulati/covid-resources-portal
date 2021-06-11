@@ -15,6 +15,7 @@ import {
   Medicince,
   Oxygen,
   Therapy,
+  Vaccine,
 } from "./Enums";
 
 export interface IFilterControlsProps {
@@ -151,6 +152,14 @@ const categoryOptions: IChoiceGroupOption[] = [
     },
   },
   {
+    key: "vaccine",
+    text: categoryMapping.vaccine.text,
+    iconProps: {
+      iconName: categoryMapping.vaccine.logoIcon,
+      style: { color: categoryMapping.vaccine.color },
+    },
+  },
+  {
     key: "oxygen",
     text: categoryMapping.oxygen.text,
     iconProps: {
@@ -205,6 +214,8 @@ function getOptionsForCategory(category: string) {
     return getEnumValues(Ambulance);
   } else if (category === "food") {
     return getEnumValues(Food);
+  } else if (category === "vaccine") {
+    return getEnumValues(Vaccine);
   } else {
     return [];
   }

@@ -208,11 +208,13 @@ const Search = withRouter((props: RouteComponentProps) => {
           shouldFocusOnMount={true}
           style={{ display: "flex", flexDirection: "row" }}
           onFocus={(ev) => {
-            const clickResourceNode = ev.target.closest(".ms-DocumentCard");
-            var nodes = Array.prototype.slice.call(
-              clickResourceNode?.parentNode?.childNodes
-            );
-            setSelectedIdx(nodes.indexOf(clickResourceNode));
+            if (resources && resources.length > 0) {
+              const clickResourceNode = ev.target.closest(".ms-DocumentCard");
+              var nodes = Array.prototype.slice.call(
+                clickResourceNode?.parentNode?.childNodes
+              );
+              setSelectedIdx(nodes.indexOf(clickResourceNode));
+            }
           }}
         >
           <Stack
@@ -235,7 +237,9 @@ const Search = withRouter((props: RouteComponentProps) => {
               </p>
             )}
           </Stack>
-          <DetailsPane contact={resources[selectedIdx]} />
+          {resources && resources.length > 0 && (
+            <DetailsPane contact={resources[selectedIdx]} />
+          )}
         </FocusZone>
       )}
     </Stack>

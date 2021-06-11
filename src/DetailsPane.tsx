@@ -1,11 +1,4 @@
-import {
-  DocumentCard,
-  DocumentCardLogo,
-  DocumentCardTitle,
-  Label,
-  Persona,
-  PersonaSize,
-} from "@fluentui/react";
+import { Icon, Label, Persona, PersonaSize } from "@fluentui/react";
 import { ILead, IListingContact } from "./Models";
 import { Image } from "@fluentui/react/lib/Image";
 import { CATEGORIES, categoryMapping, CategoryType } from "./Utils";
@@ -21,10 +14,11 @@ export function DetailsPane(props: { contact: IListingContact }) {
         size={PersonaSize.size72}
       />
       <hr />
-      <Label title={"Resources:"} />
-      {CATEGORIES.map((cat) => (
-        <ListCard category={cat} contact={props.contact} />
-      ))}
+      <div style={{ display: "flex" }}>
+        {CATEGORIES.map((cat) => (
+          <ListCard category={cat} contact={props.contact} />
+        ))}
+      </div>
       <hr />
       <Label title={"Resources:"} />
       {props.contact.leads?.map((lead: ILead) => (
@@ -38,23 +32,22 @@ function ListCard(props: { category: CategoryType; contact: any }) {
   const { category, contact } = props;
 
   return contact[category].length > 0 ? (
-    <DocumentCard>
-      <DocumentCardLogo
-        logoIcon={categoryMapping[category].logoIcon}
-        // styles={{ color: categoryMapping[category].color }}
-      />
-      <div>
-        <DocumentCardTitle
-          title={categoryMapping[category].text}
-          shouldTruncate
+    <div style={{ width: 200, padding: 10 }}>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <Icon
+          iconName={categoryMapping[category].logoIcon}
+          style={{ fontSize: 25, color: categoryMapping[category].color }}
         />
-        <ul>
-          {contact?.[category]?.map((item: string) => (
-            <li>{item}</li>
-          ))}
-        </ul>
+        <h3 style={{ display: "inline-block", margin: "0 5px" }}>
+          {categoryMapping[category].text}
+        </h3>
       </div>
-    </DocumentCard>
+      <ul style={{ paddingLeft: 25 }}>
+        {contact?.[category]?.map((item: string) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
   ) : null;
 }
 
@@ -62,6 +55,7 @@ function Lead(props: { lead: ILead }) {
   return (
     <>
       <Label title={`Shared by: ${props.lead.sender}`} />
+      <pre style={{ margin: 10 }}>{JSON.stringify(props.lead, null, 4)}</pre>
       {props.lead.link && props.lead.source === "whatsapp" ? (
         <Image src={`${props.lead.link}`} />
       ) : (

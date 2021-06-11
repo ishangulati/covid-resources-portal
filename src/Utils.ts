@@ -100,6 +100,7 @@ export const categoryMapping: {
   },
   bloodgroup: { text: "Blood Group", color: "red", logoIcon: "Drop" },
   therapy: { text: "Therapy", color: "orange", logoIcon: "Health" },
+  vaccine: { text: "Vaccine", color: "green", logoIcon: "ShieldSolid" },
   oxygen: { text: "Oxygen Supplies", color: "blue", logoIcon: "SpeedHigh" },
   bed: { text: "Beds", color: "black", logoIcon: "Hotel" },
   ambulance: {
@@ -117,6 +118,7 @@ export function getEnumValues(obj: Object) {
 export const CATEGORIES: CategoryType[] = [
   "medicine",
   "bloodgroup",
+  "vaccine",
   "therapy",
   "oxygen",
   "bed",
@@ -128,6 +130,7 @@ export type CategoryType =
   | "medicine"
   | "bloodgroup"
   | "therapy"
+  | "vaccine"
   | "oxygen"
   | "bed"
   | "ambulance"

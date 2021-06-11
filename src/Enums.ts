@@ -76,3 +76,12 @@ export enum BloodGroup {
   OPOS = "O+",
   ONEG = "O-",
 }
+
+export enum Vaccine {
+  Covishield = "Covishield",
+  Covaxin = "Covaxin",
+  Moderna = "Moderna",
+  Pfizer = "Pfizer",
+  Sputnik = "Sputnik",
+  Johnson = "Johnson & Johnson",
+}
