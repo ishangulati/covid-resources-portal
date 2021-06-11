@@ -55,9 +55,12 @@ function Lead(props: { lead: ILead }) {
   return (
     <>
       <Label title={`Shared by: ${props.lead.sender}`} />
-      <pre style={{ margin: 10 }}>{JSON.stringify(props.lead, null, 4)}</pre>
       {props.lead.link && props.lead.source === "whatsapp" ? (
-        <Image src={`${props.lead.link}`} />
+        <Image 
+          src={`https://covidresourcesstore.blob.core.windows.net/files/${props.lead.link}.jpeg`}
+          width={300}
+          height={400}
+        />
       ) : (
         JSON.parse(props.lead.rawdata || "{}").message
       )}
