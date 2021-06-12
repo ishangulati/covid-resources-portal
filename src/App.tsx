@@ -187,7 +187,7 @@ const Search = withRouter((props: RouteComponentProps) => {
     props.history.push(`/search?${newParamStr}`);
     setParamString(newParamStr);
   };
-  
+
   setFocusVisibility(true);
   const [selectedIdx, setSelectedIdx] = useState(0);
   return (
@@ -271,7 +271,7 @@ const Search = withRouter((props: RouteComponentProps) => {
           <Stack
             tokens={stackTokens}
             wrap={true}
-            styles={{ inner: { width: 500 } }}
+            styles={{ inner: { maxWidth: 500 } }}
           >
             {resources && resources.length ? (
               resources.map((r) => (
@@ -295,6 +295,7 @@ const Search = withRouter((props: RouteComponentProps) => {
                 height: "calc(100vh - 60px)",
                 left: 520,
                 top: 80,
+                width: "calc(100vw - 550px)",
               }}
             >
               <DetailsPane contact={resources[selectedIdx]} />

@@ -7,7 +7,7 @@ import { Tweet } from "react-twitter-widgets";
 
 export function DetailsPane(props: { contact: IListingContact }) {
   return (
-    <div style={{ width: "100%", overflowY: "auto", height: "100%" }}>
+    <div style={{overflowY: "auto", height: "100%" }}>
       <Persona
         text={props.contact.contactuid}
         secondaryText={props.contact.type.toUpperCase()}

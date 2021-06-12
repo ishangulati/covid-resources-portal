@@ -74,7 +74,7 @@ export const ResourceCardCompact: React.FunctionComponent<{
           shouldTruncate
           showAsSecondaryTitle
           styles={{
-            root: { textTransform: "Capitalize", fontWeight: "bold" },
+            root: { textTransform: "Capitalize", fontWeight: "bold", wordBreak:"break-word" },
           }}
         ></DocumentCardTitle>
         <DocumentCardStatus
