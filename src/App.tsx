@@ -129,10 +129,14 @@ const Search = withRouter((props: RouteComponentProps) => {
       return;
     }
     params.delete("type");
-    if (newType === "availability" || newType === "requirement") {
+    if (newType === "requirement") {
       params.append("type", newType);
-      setURLPage(0);
     }
+    if (newType === "both") {
+      params.append("type", "requirement");
+      params.append("type", "availability");
+    }
+    setURLPage(0);
     updateParams(params.toString());
     setType(newType);
   };
@@ -310,15 +314,19 @@ function Details() {
 }
 
 function formSearchUrl(params: URLSearchParams): string {
+  if (!params.get("type")) {
+    params.append("type", "availability");
+  }
   return `https://covidresourcesapi.azurewebsites.net/contacts?${params.toString()}`;
 }
 
 function getCurrentType(params: URLSearchParams): string {
   const types = params.getAll("type");
-  if (!types || types.length === 0 || types.length === 2) {
-    return "both";
+  if (!types || types.length === 0 || types.length === 1) {
+    if (types?.[0] === "requirement") return "requirement";
+    else return "availability";
   } else {
-    return types[0];
+    return "both";
   }
 }
 

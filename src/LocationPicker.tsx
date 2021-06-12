@@ -5,7 +5,6 @@ import {
   ITag,
   IBasePickerSuggestionsProps,
 } from "@fluentui/react/lib/Pickers";
-import { mergeStyles } from "@fluentui/react/lib/Styling";
 import { useId } from "@fluentui/react-hooks";
 import { toTitleCase } from "./Utils";
 import data from "./resource-mapping";
