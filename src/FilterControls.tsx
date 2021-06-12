@@ -17,14 +17,17 @@ import {
   Therapy,
   Vaccine,
 } from "./Enums";
+import { LocationPicker } from "./LocationPicker";
 
 export interface IFilterControlsProps {
   type: string;
   category: string;
   subCategory: string[];
+  city: string[];
   setType: (k: string) => void;
   setCategory: (k: string) => void;
   setSubCategory: (k: string[]) => void;
+  setCity: (k: string[]) => void;
 }
 
 export const FilterControls: React.FunctionComponent<IFilterControlsProps> = (
@@ -100,7 +103,7 @@ export const FilterControls: React.FunctionComponent<IFilterControlsProps> = (
 
       <Dropdown
         placeholder="Select options"
-        label="Select subCategory you are looking for"
+        label="Select Resource you are looking for"
         selectedKeys={subCategory}
         componentRef={dropdownRef}
         // eslint-disable-next-line react/jsx-no-bind
@@ -111,6 +114,10 @@ export const FilterControls: React.FunctionComponent<IFilterControlsProps> = (
         options={dropdownOptions}
         styles={dropdownStyles}
         onDismiss={selectAllIfNoneSelected}
+      />
+      <LocationPicker
+        onChange={(tags) => props.setCity(tags?.map((t) => t.name) || [])}
+        selected={props.city}
       />
     </Stack>
   );

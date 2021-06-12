@@ -14,6 +14,7 @@ export function DetailsPane(props: { contact: IListingContact }) {
         tertiaryText={`${props.contact.leads?.length} people shared this!`}
         imageInitials={props.contact.type[0].toUpperCase()}
         size={PersonaSize.size72}
+        style={{color:"blue"}}
       />
       <hr />
       {props.contact.location?.map(toTitleCase).join(", ") || ""}

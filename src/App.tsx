@@ -26,6 +26,7 @@ import { FilterControls } from "./FilterControls";
 import { CATEGORIES } from "./Utils";
 import { DetailsPane } from "./DetailsPane";
 import "./App.css";
+import { TablePagination } from "@material-ui/core";
 
 const stackTokens: IStackTokens = { childrenGap: 10 };
 
@@ -94,6 +95,14 @@ const Search = withRouter((props: RouteComponentProps) => {
   const [resources, setResources] = useState<IListingContact[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const pagination = getPagination(params);
+
+  const [page, setPage] = useState(pagination.page);
+  const [rowCount, setRowCount] = useState(pagination.count);
+  const [totalCount, setTotalCount] = useState(0);
+
+  const [city, setCity] = React.useState<string[]>(getCity(params));
+
   const onHistoryChange = (location: {
     search: React.SetStateAction<string>;
   }) => {
@@ -111,6 +120,7 @@ const Search = withRouter((props: RouteComponentProps) => {
       .then((res) => res.json())
       .then((response) => {
         setResources(response.rows);
+        setTotalCount(response.count);
         setIsLoading(false);
       })
       .catch((error) => console.log(error));
@@ -155,6 +165,13 @@ const Search = withRouter((props: RouteComponentProps) => {
     setSubCategory(options);
   };
 
+  const setFilterCity = (city: string[]) => {
+    params.delete("city");
+    city.forEach((c) => params.append("city", c));
+    updateParams(params.toString());
+    setCity(city);
+  };
+
   const updateParams = (newParamStr: string) => {
     props.history.push(`/search?${newParamStr}`);
     setParamString(newParamStr);
@@ -178,6 +195,27 @@ const Search = withRouter((props: RouteComponentProps) => {
         onClick={openFiltersPanel}
         style={{ marginBottom: 10, maxWidth: 482 }}
       />
+      <div style={{ display: "flex", margin: 0 }}>
+        <TablePagination
+          component="div"
+          count={totalCount}
+          page={page}
+          onChangePage={(e, pg) => {
+            params.delete("page");
+            params.append("page", pg.toString());
+            setPage(pg);
+            updateParams(params.toString());
+          }}
+          rowsPerPage={rowCount}
+          onChangeRowsPerPage={(e) => {
+            const c = e.target.value;
+            params.delete("count");
+            params.append("count", c.toString());
+            setRowCount(+c);
+            updateParams(params.toString());
+          }}
+        />
+      </div>
       <div>
         <Panel
           headerText="Filters"
@@ -192,9 +230,11 @@ const Search = withRouter((props: RouteComponentProps) => {
             category={category}
             subCategory={subCategory}
             type={type}
+            city={city}
             setCategory={setFilterCategory}
             setSubCategory={setFilterSubcategory}
             setType={setFilterType}
+            setCity={setFilterCity}
           />
         </Panel>
       </div>
@@ -288,4 +328,18 @@ function getCurrentCategory(params: URLSearchParams): {
     }
   }
   return { category: "all", options: [] };
+}
+
+function getPagination(params: URLSearchParams): {
+  page: number;
+  count: number;
+} {
+  const page = +(params.get("page") || 0);
+  const count = +(params.get("count") || 10);
+
+  return { page, count };
+}
+
+function getCity(params: URLSearchParams): string[] {
+  return params.getAll("city");
 }
