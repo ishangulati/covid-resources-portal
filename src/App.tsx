@@ -16,7 +16,6 @@ import {
   Switch,
   Route,
   RouteComponentProps,
-  Link,
   withRouter,
 } from "react-router-dom";
 import { ResourceCardCompact } from "./CompactResouceCard";
@@ -61,26 +60,6 @@ export default function App() {
 
 // You can think of these components as "pages"
 // in your app.
-
-function Home() {
-  return (
-    <Stack
-      verticalAlign="center"
-      verticalFill
-      styles={{
-        root: {
-          margin: "0 20px",
-        },
-      }}
-      tokens={stackTokens}
-    >
-      <p>
-        More options coming soon, reach out to +91-8882017983. Till then you can{" "}
-        <Link to="/search">Search for Covid Resources</Link>
-      </p>
-    </Stack>
-  );
-}
 
 const Search = withRouter((props: RouteComponentProps) => {
   const [paramStr, setParamString] = React.useState(props.location.search);
@@ -200,7 +179,23 @@ const Search = withRouter((props: RouteComponentProps) => {
       }}
       tokens={stackTokens}
     >
-      <h2>Search</h2>
+      <div
+        style={{
+          margin: "15 0 0",
+          fontSize: 20,
+          fontWeight: 700,
+        }}
+      >
+        Covid Resources Search
+      </div>
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href={"https://api.whatsapp.com/send?phone=918882017983?text='Hi'"}
+        style={{ margin: "5px 0", fontSize: 12 }}
+      >
+        Send leads to whatsapp +91-8882017983
+      </a>
       <DefaultButton
         text="Open filters"
         onClick={openFiltersPanel}

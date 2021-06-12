@@ -108,14 +108,35 @@
   transform: rotate(45deg) scaleY(-1);
 }
 
-.MuiTablePagination-toolbar{
+.MuiTablePagination-toolbar {
   padding-left: 0 !important;
+  min-height: 35px !important;
 }
 
-.MuiTablePagination-selectRoot{
+.MuiTablePagination-selectRoot {
   margin-right: 10px !important;
 }
 
-.MuiTablePagination-actions{
+.MuiTablePagination-actions {
   margin-left: 15px !important;
+}
+
+.mobile-hide {
+  display: inline-block;
+}
+
+.mobile-show {
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .mobile-hide {
+    display: none;
+  }
+  .mobile-show {
+    display: inline-block;
+  }
+}
+.MuiIconButton-root{
+  padding: 5px !important;
 }

@@ -36,7 +36,7 @@ export function getIconsAndTextObject(resource: IExtractedArrays) {
 
   CATEGORIES.forEach((cat) => {
     if (resource[cat] && resource[cat]?.length) {
-      text.push((resource[cat] || []).join(";"));
+      text.push((resource[cat] || []).join(", "));
       icons.push(categoryMapping[cat]);
     }
   });
