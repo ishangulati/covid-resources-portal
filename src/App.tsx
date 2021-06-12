@@ -172,9 +172,11 @@ const Search = withRouter((props: RouteComponentProps) => {
     setCity(city);
   };
 
-  const updateParams = (newParamStr: string) => {
+  const updateParams = (newParamStr: string, pg: number = 0) => {
     props.history.push(`/search?${newParamStr}`);
     setParamString(newParamStr);
+    setTotalCount(0);
+    setPage(pg);
   };
   setFocusVisibility(true);
   const [selectedIdx, setSelectedIdx] = useState(0);
@@ -203,8 +205,7 @@ const Search = withRouter((props: RouteComponentProps) => {
           onChangePage={(e, pg) => {
             params.delete("page");
             params.append("page", pg.toString());
-            setPage(pg);
-            updateParams(params.toString());
+            updateParams(params.toString(), pg);
           }}
           rowsPerPage={rowCount}
           onChangeRowsPerPage={(e) => {
