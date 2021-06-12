@@ -10,9 +10,6 @@ import { useId } from "@fluentui/react-hooks";
 import { toTitleCase } from "./Utils";
 import data from "./resource-mapping";
 
-const rootClass = mergeStyles({
-  maxWidth: 500,
-});
 
 const pickerSuggestionsProps: IBasePickerSuggestionsProps = {
   suggestionsHeaderText: "Suggested Cities",
@@ -54,8 +51,8 @@ export const LocationPicker: React.FunctionComponent<{
   const pickerId = useId("inline-picker");
 
   return (
-    <div className={rootClass}>
-      <label htmlFor={pickerId}>Select cities</label>
+    <div style={{marginTop: 10}}>
+      <label style={{fontWeight:600}} htmlFor={pickerId}>Select cities (optional)</label>
       <TagPicker
         removeButtonAriaLabel="Remove"
         selectionAriaLabel="Selected cities"

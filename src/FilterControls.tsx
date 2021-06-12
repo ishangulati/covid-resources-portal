@@ -93,7 +93,10 @@ export const FilterControls: React.FunctionComponent<IFilterControlsProps> = (
         onChange={onTypeChange}
         label="Show me"
       />
-
+      <LocationPicker
+        onChange={(tags) => props.setCity(tags?.map((t) => t.name) || [])}
+        selected={props.city}
+      />
       <ChoiceGroup
         label="Pick one category"
         defaultSelectedKey={category}
@@ -114,10 +117,6 @@ export const FilterControls: React.FunctionComponent<IFilterControlsProps> = (
         options={dropdownOptions}
         styles={dropdownStyles}
         onDismiss={selectAllIfNoneSelected}
-      />
-      <LocationPicker
-        onChange={(tags) => props.setCity(tags?.map((t) => t.name) || [])}
-        selected={props.city}
       />
     </Stack>
   );
