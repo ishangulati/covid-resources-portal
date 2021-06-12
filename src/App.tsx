@@ -48,9 +48,8 @@ export default function App() {
       <div>
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Search />
           </Route>
-          <Route path="/search" component={Search}></Route>
           <Route path="/details">
             <Details />
           </Route>
@@ -184,7 +183,7 @@ const Search = withRouter((props: RouteComponentProps) => {
   };
 
   const updateParams = (newParamStr: string) => {
-    props.history.push(`/search?${newParamStr}`);
+    props.history.push(`/?${newParamStr}`);
     setParamString(newParamStr);
   };
 
