@@ -186,8 +186,8 @@ const Search = withRouter((props: RouteComponentProps) => {
   const updateParams = (newParamStr: string) => {
     props.history.push(`/search?${newParamStr}`);
     setParamString(newParamStr);
-    setTotalCount(0);
   };
+  
   setFocusVisibility(true);
   const [selectedIdx, setSelectedIdx] = useState(0);
   return (
