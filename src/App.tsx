@@ -153,6 +153,7 @@ const Search = withRouter((props: RouteComponentProps) => {
     params.delete("type");
     if (newType === "availability" || newType === "requirement") {
       params.append("type", newType);
+      setURLPage(0);
     }
     updateParams(params.toString());
     setType(newType);
@@ -161,6 +162,7 @@ const Search = withRouter((props: RouteComponentProps) => {
   const setFilterSubcategory = (options: string[]) => {
     params.delete(category);
     options.forEach((opt) => params.append(category, opt));
+    setURLPage(0);
     updateParams(params.toString());
     setSubCategory(options);
   };
@@ -168,15 +170,23 @@ const Search = withRouter((props: RouteComponentProps) => {
   const setFilterCity = (city: string[]) => {
     params.delete("location");
     city.forEach((c) => params.append("location", c));
+    setURLPage(0);
     updateParams(params.toString());
     setCity(city);
   };
 
-  const updateParams = (newParamStr: string, pg: number = 0) => {
+  const setURLPage = (page: number) => {
+    params.delete("page");
+    if (page > 0) {
+      params.append("page", page.toString());
+    }
+    setPage(page);
+  };
+
+  const updateParams = (newParamStr: string) => {
     props.history.push(`/search?${newParamStr}`);
     setParamString(newParamStr);
     setTotalCount(0);
-    setPage(pg);
   };
   setFocusVisibility(true);
   const [selectedIdx, setSelectedIdx] = useState(0);
@@ -203,9 +213,8 @@ const Search = withRouter((props: RouteComponentProps) => {
           count={totalCount}
           page={page}
           onChangePage={(e, pg) => {
-            params.delete("page");
-            params.append("page", pg.toString());
-            updateParams(params.toString(), pg);
+            setURLPage(pg);
+            updateParams(params.toString());
           }}
           rowsPerPage={rowCount}
           onChangeRowsPerPage={(e) => {
