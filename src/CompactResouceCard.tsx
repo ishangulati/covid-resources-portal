@@ -37,9 +37,9 @@ export const ResourceCardCompact: React.FunctionComponent<{
         setFocusVisibility(true);
       }}
       type={DocumentCardType.compact}
-      style={{ height: 160 }}
+      style={{ height: 160, overflow: "hidden" }}
     >
-      <div style={{ position: "relative" }}>
+      <div style={{ position: "relative", width: 150, overflow: "hidden" }}>
         <a
           data-is-focusable={false}
           style={{
@@ -49,6 +49,7 @@ export const ResourceCardCompact: React.FunctionComponent<{
             display: "inline-block",
             padding: "8px 16px",
             textDecoration: "none",
+            wordBreak:"break-word"
           }}
           href={
             resource.contactuid[0] === "+"
@@ -61,11 +62,6 @@ export const ResourceCardCompact: React.FunctionComponent<{
         <div style={{ position: "absolute", margin: "0 20px" }}>
           {resourceDetails.icons.map((icon, i) => (
             <DocumentCardLogo key={i} {...getLogoProps(icon)} />
-          ))}
-          {resource.location?.map((city) => (
-            <div key={city} style={{ fontSize: 15 }}>
-              {toTitleCase(city)}
-            </div>
           ))}
         </div>
       </div>
@@ -81,10 +77,16 @@ export const ResourceCardCompact: React.FunctionComponent<{
             root: { textTransform: "Capitalize", fontWeight: "bold" },
           }}
         ></DocumentCardTitle>
-
         <DocumentCardStatus
-          statusIcon="attach"
-          status={`This contact was shared ${resource.leads?.length} time(s)!`}
+          statusIcon="MapPin"
+          styles={{
+            root: {
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            },
+          }}
+          status={resource.location?.map(toTitleCase).join(", ") || ""}
         />
         <DocumentCardActivity
           activity={`Last shared: ${timeDifference(

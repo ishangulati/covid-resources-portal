@@ -25,7 +25,7 @@ import { useBoolean } from "@fluentui/react-hooks";
 import { FilterControls } from "./FilterControls";
 import { CATEGORIES } from "./Utils";
 import { DetailsPane } from "./DetailsPane";
-import "./App.css"
+import "./App.css";
 
 const stackTokens: IStackTokens = { childrenGap: 10 };
 
@@ -239,7 +239,16 @@ const Search = withRouter((props: RouteComponentProps) => {
             )}
           </Stack>
           {resources && resources.length > 0 && (
-            <DetailsPane contact={resources[selectedIdx]} />
+            <div
+              style={{
+                position: "fixed",
+                height: "calc(100vh - 60px)",
+                left: 520,
+                top: 80,
+              }}
+            >
+              <DetailsPane contact={resources[selectedIdx]} />
+            </div>
           )}
         </FocusZone>
       )}

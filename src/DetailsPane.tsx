@@ -1,21 +1,23 @@
 import { Icon, Persona, PersonaSize } from "@fluentui/react";
 import { ILead, IListingContact } from "./Models";
 import { Image } from "@fluentui/react/lib/Image";
-import { CATEGORIES, categoryMapping, CategoryType } from "./Utils";
+import { CATEGORIES, categoryMapping, CategoryType, toTitleCase } from "./Utils";
 import { WhatsAppChat } from "./WhatsAppChat";
 import { Tweet } from "react-twitter-widgets";
 
 export function DetailsPane(props: { contact: IListingContact }) {
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", overflowY: "auto", height: "100%" }}>
       <Persona
-        showUnknownPersonaCoin={true}
         text={props.contact.contactuid}
         secondaryText={props.contact.type.toUpperCase()}
-        tertiaryText="Unverified contact"
+        tertiaryText={`${props.contact.leads?.length} people shared this!`}
+        imageInitials={props.contact.type[0].toUpperCase()}
         size={PersonaSize.size72}
       />
       <hr />
+      {props.contact.location?.map(toTitleCase).join(", ") || ""}
+      <hr/>
       <div style={{ display: "flex" }}>
         {CATEGORIES.map((cat) => (
           <ListCard key={cat} category={cat} contact={props.contact} />
@@ -23,9 +25,16 @@ export function DetailsPane(props: { contact: IListingContact }) {
       </div>
       <hr />
       <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
-        {props.contact.leads?.slice(0, 30).map((lead: ILead) => (
-          <Lead key={lead.leaduid} lead={lead} />
-        ))}
+        {props.contact.leads
+          ?.sort(
+            (a, b) =>
+              new Date(b.originTimestamp).getTime() -
+              new Date(a.originTimestamp).getTime()
+          )
+          .slice(0, 30)
+          .map((lead: ILead) => (
+            <Lead key={lead.leaduid} lead={lead} />
+          ))}
       </div>
     </div>
   );

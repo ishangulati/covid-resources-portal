@@ -13,7 +13,7 @@ export function WhatsAppChat(props: {
             </p>
             <p className="message">{props.text}</p>
             <br/>
-            <span className="timestamp">{props.time}</span>
+            <span className="timestamp">{new Date(props.time).toLocaleString()}</span>
           </div>
           <div className="bubble-arrow"></div>
         </div>
