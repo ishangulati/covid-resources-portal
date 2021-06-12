@@ -166,8 +166,8 @@ const Search = withRouter((props: RouteComponentProps) => {
   };
 
   const setFilterCity = (city: string[]) => {
-    params.delete("city");
-    city.forEach((c) => params.append("city", c));
+    params.delete("location");
+    city.forEach((c) => params.append("location", c));
     updateParams(params.toString());
     setCity(city);
   };
@@ -341,5 +341,5 @@ function getPagination(params: URLSearchParams): {
 }
 
 function getCity(params: URLSearchParams): string[] {
-  return params.getAll("city");
+  return params.getAll("location");
 }
